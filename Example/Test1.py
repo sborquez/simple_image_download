@@ -1,7 +1,5 @@
-from simple_image_download import simple_image_download as simp
+from simple_image_download import response
 
-response = simp.simple_image_download
+response.download('bear', 5)
 
-response().download('bear', 5)
-
-print(response().urls('bear', 5))
+print(response.urls('bear', 5))

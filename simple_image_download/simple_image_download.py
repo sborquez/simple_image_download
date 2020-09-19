@@ -8,7 +8,7 @@ from urllib.parse import quote
 
 class simple_image_download:
     def __init__(self):
-        pass
+        self.main_directory = "simple_images/"
 
     def urls(self, keywords, limit, extensions={'.jpg', '.png', '.ico', '.gif', '.jpeg'}):
         keyword_to_search = [str(item).strip() for item in keywords.split(',')]
@@ -74,7 +74,6 @@ class simple_image_download:
 
     def download(self, keywords, limit, extensions={'.jpg', '.png', '.ico', '.gif', '.jpeg'}):
         keyword_to_search = [str(item).strip() for item in keywords.split(',')]
-        main_directory = "simple_images/"
         i = 0
 
         things = len(keyword_to_search) * limit
@@ -85,7 +84,7 @@ class simple_image_download:
         bar.start()
 
         while i < len(keyword_to_search):
-            self._create_directories(main_directory, keyword_to_search[i])
+            self._create_directories(self.main_directory, keyword_to_search[i])
             url = 'https://www.google.com/search?q=' + quote(
                 keyword_to_search[i].encode('utf-8')) + '&biw=1536&bih=674&tbm=isch&sxsrf=ACYBGNSXXpS6YmAKUiLKKBs6xWb4uUY5gA:1581168823770&source=lnms&sa=X&ved=0ahUKEwioj8jwiMLnAhW9AhAIHbXTBMMQ_AUI3QUoAQ'
             raw_html = self._download_page(url)
@@ -110,7 +109,7 @@ class simple_image_download:
 
                     except Exception as e:
                         break
-                path = main_directory + keyword_to_search[i].replace(" ", "_")
+                path = self.main_directory + keyword_to_search[i].replace(" ", "_")
 
                 try:
                     r = requests.get(object_raw, allow_redirects=True, timeout=1)
@@ -172,3 +171,5 @@ class simple_image_download:
         except Exception as e:
             print(e)
             exit(0)
+
+response=simple_image_download()
